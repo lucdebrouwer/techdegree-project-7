@@ -23,7 +23,7 @@ const Nav = props => {
           </li>
           <li>
             <Link to="/computers" onClick={props.onComputerClick}>
-              Computers
+              Business
             </Link>
           </li>
         </ul>

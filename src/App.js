@@ -87,7 +87,7 @@ class App extends Component {
               )}
             />
             <Route
-              path="/computers"
+              path="/business"
               render={props => (
                 <Gallery {...props} photos={this.state.photosData} />
               )}
