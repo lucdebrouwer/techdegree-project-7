@@ -20,13 +20,52 @@ class App extends Component {
         this.setState({ photosData: result.photos.photo });
       });
   };
+
+  handleHomeClick = () => {
+    this.setState({ photosData: [] });
+    console.log("I did reset state here");
+  };
+
+  getCatPhotos = () => {
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=cats&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1`;
+    fetch(url)
+      .then(res => res.json())
+      .then(result => {
+        this.setState({ photosData: result.photos.photo });
+      });
+  };
+
+  getDogPhotos = () => {
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=dogs&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1`;
+    fetch(url)
+      .then(res => res.json())
+      .then(result => {
+        this.setState({ photosData: result.photos.photo });
+      });
+  };
+
+  getComputerPhotos = () => {
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=business&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1`;
+    fetch(url)
+      .then(res => res.json())
+      .then(result => {
+        console.log(result);
+        this.setState({ photosData: result.photos.photo });
+      });
+  };
+
   componentDidMount() {}
   render() {
     return (
       <Router>
         <div>
           <SearchForm onSearch={this.performSearch} />
-          <Nav />
+          <Nav
+            handleHomeClick={this.handleHomeClick}
+            onCatClick={this.getCatPhotos}
+            onDogClick={this.getDogPhotos}
+            onComputerClick={this.getComputerPhotos}
+          />
           <Switch>
             <Route
               exact
@@ -35,9 +74,24 @@ class App extends Component {
                 <Gallery {...props} photos={this.state.photosData} />
               )}
             />
-            <Route path="/cats" component={Gallery} />
-            <Route path="/dogs" component={Gallery} />
-            <Route path="/computers" component={Gallery} />
+            <Route
+              path="/cats"
+              render={props => (
+                <Gallery {...props} photos={this.state.photosData} />
+              )}
+            />
+            <Route
+              path="/dogs"
+              render={props => (
+                <Gallery {...props} photos={this.state.photosData} />
+              )}
+            />
+            <Route
+              path="/computers"
+              render={props => (
+                <Gallery {...props} photos={this.state.photosData} />
+              )}
+            />
             <Route component={NotFound} />
           </Switch>
         </div>

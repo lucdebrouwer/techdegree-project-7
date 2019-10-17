@@ -7,13 +7,24 @@ const Nav = props => {
       <nav className="main-nav">
         <ul>
           <li>
-            <Link to="/dogs">Cats</Link>
+            <Link to="/" onClick={props.handleHomeClick}>
+              Custom
+            </Link>
           </li>
           <li>
-            <Link to="/dogs">Dogs</Link>
+            <Link to="/cats" onClick={props.onCatClick}>
+              Cats
+            </Link>
           </li>
           <li>
-            <Link to="/computers">Computers</Link>
+            <Link to="/dogs" onClick={props.onDogClick}>
+              Dogs
+            </Link>
+          </li>
+          <li>
+            <Link to="/computers" onClick={props.onComputerClick}>
+              Computers
+            </Link>
           </li>
         </ul>
       </nav>
