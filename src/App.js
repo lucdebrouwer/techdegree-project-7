@@ -44,7 +44,7 @@ class App extends Component {
       });
   };
 
-  getComputerPhotos = () => {
+  getBusinessPhotos = () => {
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=business&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1`;
     fetch(url)
       .then(res => res.json())
@@ -64,7 +64,7 @@ class App extends Component {
             handleHomeClick={this.handleHomeClick}
             onCatClick={this.getCatPhotos}
             onDogClick={this.getDogPhotos}
-            onComputerClick={this.getComputerPhotos}
+            onBusinessClick={this.getBusinessPhotos}
           />
           <Switch>
             <Route
