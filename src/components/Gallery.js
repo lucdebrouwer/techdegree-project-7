@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Photo from "./Photo";
-
+import NotFound from "./NotFound";
 class Gallery extends Component {
   render() {
     let photos_2 = this.props.photos.map(photo => {

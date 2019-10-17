@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./css/index.css";
 import SearchForm from "./components/SearchForm";
 import Nav from "./components/Nav";
-import NotFound from "./components/NotFound";
+import RouteNotFound from "./components/RouteNotFound";
 import apiKey from "./config";
 import Gallery from "./components/Gallery";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -58,7 +58,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="container">
           <SearchForm onSearch={this.performSearch} />
           <Nav
             handleHomeClick={this.handleHomeClick}
@@ -92,7 +92,7 @@ class App extends Component {
                 <Gallery {...props} photos={this.state.photosData} />
               )}
             />
-            <Route component={NotFound} />
+            <Route component={RouteNotFound} />
           </Switch>
         </div>
       </Router>
