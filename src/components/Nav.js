@@ -22,7 +22,7 @@ const Nav = props => {
             </Link>
           </li>
           <li>
-            <Link to="/computers" onClick={props.onComputerClick}>
+            <Link to="/business" onClick={props.onComputerClick}>
               Business
             </Link>
           </li>
