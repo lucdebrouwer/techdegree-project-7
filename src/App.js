@@ -16,6 +16,7 @@ class App extends Component {
     fetch(url)
       .then(res => res.json())
       .then(result => {
+        console.log(result);
         this.setState({ photosData: result.photos.photo });
       });
   };
