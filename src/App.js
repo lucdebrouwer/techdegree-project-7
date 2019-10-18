@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends Component {
   state = {
+    isLoading: false,
     isInitialising: true,
     photosData: []
   };
@@ -17,16 +18,18 @@ class App extends Component {
   // the App component gets the query property by lifting state up from SearchForm back to App.
   performSearch = query => {
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=${query}&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1`;
+    this.setState({ isLoading: true });
     fetch(url)
       .then(res => res.json())
       .then(result => {
-        console.log(result);
+        console.log("Im loading the data...", this.state.isLoading);
         // The flickr api returns an array of objects containing a few properties that we need to actually build the source link of the image
         // this object contains the id, the farm, the server and the secret.
 
         // Pass the result of the fetch call into the app state.
         // We will be lifting state down to get this data at the components that need the data.
-        this.setState({ photosData: result.photos.photo });
+        this.setState({ photosData: result.photos.photo, isLoading: false });
+        console.log("Im finished loading the data...", this.state.isLoading);
       });
   };
 

@@ -5,6 +5,9 @@ class Gallery extends Component {
   render() {
     // We retrieved five important properties that are used below to pass to the Photo component.
     let photos = this.props.photos;
+    if (this.props.isLoading) {
+      return <h2>Loading...</h2>;
+    }
     if (photos.length > 0) {
       photos = this.props.photos.map(photo => {
         return (
@@ -21,10 +24,18 @@ class Gallery extends Component {
     } else {
       if (this.props.isInitialising) {
         return <h2>Loading...</h2>;
-      } else {
-        return <NotFound />;
       }
+      return <NotFound />;
     }
+
+    // } else if (this.props.isInitialising || this.props.isLoading) {
+    //   // if (this.props.isInitialising) {
+    //   //   return <h2>Loading...</h2>;
+    //   // }
+    //   return <h2>Loading...</h2>;
+    // } else {
+    //   return <NotFound />;
+    // }
     // let photos_2 = this.props.photos.map(photo => {
     //   return (
     //     <Photo
