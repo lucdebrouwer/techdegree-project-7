@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends Component {
   state = {
+    // In each data retrieval function isLoading is used to determine whether the data,
+    // has been fetched. While loading display a <h2> with a Loading... message.
     isLoading: false,
     isInitialising: true,
     photosData: []
@@ -22,14 +24,16 @@ class App extends Component {
     fetch(url)
       .then(res => res.json())
       .then(result => {
-        console.log("Im loading the data...", this.state.isLoading);
+        /* Uncomment the console.log lines to debug the loading state */
+        //console.log("Im loading the data...", this.state.isLoading);
+
         // The flickr api returns an array of objects containing a few properties that we need to actually build the source link of the image
         // this object contains the id, the farm, the server and the secret.
 
         // Pass the result of the fetch call into the app state.
         // We will be lifting state down to get this data at the components that need the data.
         this.setState({ photosData: result.photos.photo, isLoading: false });
-        console.log("Im finished loading the data...", this.state.isLoading);
+        //console.log("Im finished loading the data...", this.state.isLoading);
       });
   };
 
@@ -37,42 +41,43 @@ class App extends Component {
   // This function is used to retrieve the default data whenever the app loads,
   // or the user clicks on the Home route.
   handleHomeClick = () => {
-    //this.setState({ photosData: [] });
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=rainbows&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1`;
+    this.setState({ isLoading: true });
     fetch(url)
       .then(res => res.json())
       .then(result => {
-        console.log(result);
-        this.setState({ photosData: result.photos.photo });
+        this.setState({ photosData: result.photos.photo, isLoading: false });
         this.setState({ isInitialising: false });
       });
   };
 
   getCatPhotos = () => {
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=cats&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1`;
+    this.setState({ isLoading: true });
     fetch(url)
       .then(res => res.json())
       .then(result => {
-        this.setState({ photosData: result.photos.photo });
+        this.setState({ photosData: result.photos.photo, isLoading: false });
       });
   };
 
   getDogPhotos = () => {
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=dogs&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1`;
+    this.setState({ isLoading: true });
     fetch(url)
       .then(res => res.json())
       .then(result => {
-        this.setState({ photosData: result.photos.photo });
+        this.setState({ photosData: result.photos.photo, isLoading: false });
       });
   };
 
   getBusinessPhotos = () => {
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=business&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1`;
+    this.setState({ isLoading: true });
     fetch(url)
       .then(res => res.json())
       .then(result => {
-        console.log(result);
-        this.setState({ photosData: result.photos.photo });
+        this.setState({ photosData: result.photos.photo, isLoading: false });
       });
   };
 
@@ -92,6 +97,7 @@ class App extends Component {
             onBusinessClick={this.getBusinessPhotos}
           />
           {/* ---------- Routes -----------*/}
+
           <Switch>
             <Route
               exact
@@ -100,6 +106,7 @@ class App extends Component {
                 <Gallery
                   {...props}
                   photos={this.state.photosData}
+                  isLoading={this.state.isLoading}
                   isInitialising={this.state.isInitialising}
                 />
               )}
@@ -107,19 +114,31 @@ class App extends Component {
             <Route
               path="/cats"
               render={props => (
-                <Gallery {...props} photos={this.state.photosData} />
+                <Gallery
+                  {...props}
+                  photos={this.state.photosData}
+                  isLoading={this.state.isLoading}
+                />
               )}
             />
             <Route
               path="/dogs"
               render={props => (
-                <Gallery {...props} photos={this.state.photosData} />
+                <Gallery
+                  {...props}
+                  photos={this.state.photosData}
+                  isLoading={this.state.isLoading}
+                />
               )}
             />
             <Route
               path="/business"
               render={props => (
-                <Gallery {...props} photos={this.state.photosData} />
+                <Gallery
+                  {...props}
+                  photos={this.state.photosData}
+                  isLoading={this.state.isLoading}
+                />
               )}
             />
             {/* Return a RouteNotFound component if a user tries to access a route that does not exist */}
