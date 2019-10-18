@@ -8,7 +8,7 @@ const Nav = props => {
         <ul>
           <li>
             <Link to="/" onClick={props.handleHomeClick}>
-              Custom
+              Home
             </Link>
           </li>
           <li>
