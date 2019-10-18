@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends Component {
   state = {
+    isInitialising: true,
     photosData: []
   };
   /* ----------- Main Data Retrieval ---------------- */
@@ -40,6 +41,7 @@ class App extends Component {
       .then(result => {
         console.log(result);
         this.setState({ photosData: result.photos.photo });
+        this.setState({ isInitialising: false });
       });
   };
 
@@ -92,7 +94,11 @@ class App extends Component {
               exact
               path="/"
               render={props => (
-                <Gallery {...props} photos={this.state.photosData} />
+                <Gallery
+                  {...props}
+                  photos={this.state.photosData}
+                  isInitialising={this.state.isInitialising}
+                />
               )}
             />
             <Route

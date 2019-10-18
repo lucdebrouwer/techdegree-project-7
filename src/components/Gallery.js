@@ -19,7 +19,11 @@ class Gallery extends Component {
         );
       });
     } else {
-      return <NotFound />;
+      if (this.props.isInitialising) {
+        return <h2>Loading...</h2>;
+      } else {
+        return <NotFound />;
+      }
     }
     // let photos_2 = this.props.photos.map(photo => {
     //   return (
