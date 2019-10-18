@@ -19,7 +19,7 @@ class App extends Component {
   // The main function for data retrieval from the flickr API.
   // the App component gets the query property by lifting state up from SearchForm back to App.
   performSearch = query => {
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=${query}&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1`;
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=${query}&api_key=${apiKey}&per_page=24&format=json&nojsoncallback=1&content_type=1`;
     this.setState({ isLoading: true });
     fetch(url)
       .then(res => res.json())
