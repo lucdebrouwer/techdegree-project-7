@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { withRouter } from "react-router";
 class SearchForm extends Component {
   state = {
     searchText: ""
@@ -15,7 +15,16 @@ class SearchForm extends Component {
 
   handleOnSubmit = e => {
     e.preventDefault();
+    // Destructure the props from the route object and retrieve history which we need to set the path.
+    const { history } = this.props;
     this.props.onSearch(this.state.searchText);
+
+    // Retrieve the reference value
+    let query = this.query.value;
+    // Create a path and push the path into the history prop
+    // By doing this the Route component will know to listen for a route that matches the search parameter.
+    let path = `/search/${query}`;
+    history.push(path);
     e.currentTarget.reset();
   };
 
@@ -28,6 +37,10 @@ class SearchForm extends Component {
             name="search"
             placeholder="Search"
             required
+            /* Create a reference which we can use to build a path for the URL*/
+            ref={input => {
+              this.query = input;
+            }}
             onChange={this.handleOnSearchChange}
           />
           <button className="search-button" type="submit">
@@ -48,4 +61,4 @@ class SearchForm extends Component {
   }
 }
 
-export default SearchForm;
+export default withRouter(SearchForm);

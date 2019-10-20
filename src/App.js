@@ -99,6 +99,19 @@ class App extends Component {
           {/* ---------- Routes -----------*/}
 
           <Switch>
+            {/* This route is used for dynamic implementing the search route. */}
+            <Route
+              exact
+              path="/search/:query"
+              render={props => (
+                <Gallery
+                  {...props}
+                  photos={this.state.photosData}
+                  isLoading={this.state.isLoading}
+                  isInitialising={this.state.isInitialising}
+                />
+              )}
+            />
             <Route
               exact
               path="/"
